@@ -1,0 +1,28 @@
+{
+  "name": "isomorphic-vanillajs",
+  "version": "1.0.0",
+  "description": "Isomorphic base project with vanilla js",
+  "main": "index.js",
+  "scripts": {
+    "start": "./node_modules/.bin/browserify src/index.js > build/bundle.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FernandaBernardo/isomorphic-vanillajs.git"
+  },
+  "keywords": [
+    "isomorphic",
+    "vanilla",
+    "js"
+  ],
+  "author": "FernandaBernardo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FernandaBernardo/isomorphic-vanillajs/issues"
+  },
+  "homepage": "https://github.com/FernandaBernardo/isomorphic-vanillajs#readme",
+  "devDependencies": {
+    "browserify": "14.5.0"
+  }
+}
