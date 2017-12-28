@@ -1,0 +1,27 @@
+ul {
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    flex-basis: 80%;
+}
+
+ul li {
+    flex-basis: 20%;
+    display:flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+ul li span {
+    color: #5a5a5a;
+    text-align: center;
+}
+
+ul li img {
+    margin: 5px;
+    border-radius: 3px;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.2); 
+}
