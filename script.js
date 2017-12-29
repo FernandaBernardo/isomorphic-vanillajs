@@ -27,6 +27,19 @@ const url = 'https://randomuser.me/api/?results=10';
 const template = (name, image) => `<li><img src="${image}"><span>${name}</span></li>`;
 
 if (typeof module === 'object') {
+    const express = require('express'),
+        app = express(),
+        path = require('path');
+
+    app.use(express.static(__dirname));
+
+    app.get('/', function(req, res){
+        res.sendFile(path.join(__dirname + '/index.html'));
+    });
+
+    const server = app.listen(3000);
+    console.log('Servidor Express iniciado na porta %s', server.address().port);
+
     const https = require('https');
     https.get(url, res => {
         res.setEncoding("utf8");

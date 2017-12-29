@@ -1,0 +1,22 @@
+{
+  "name": "isomorphic-vanillajs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FernandaBernardo/isomorphic-vanillajs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FernandaBernardo/isomorphic-vanillajs/issues"
+  },
+  "homepage": "https://github.com/FernandaBernardo/isomorphic-vanillajs#readme",
+  "dependencies": {
+    "express": "4.16.2"
+  }
+}
