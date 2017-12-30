@@ -50,7 +50,7 @@ if (typeof module === 'object') {
                 let renderedAuthors = authors.map(function(author) {
                     return template(author.name, author.image);
                 });
-                response.render('authors', {authors: renderedAuthors});
+                response.render('authors', {authors: renderedAuthors.join('')});
             });
         });
     });
