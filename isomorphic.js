@@ -8,8 +8,8 @@ const isomorphic = {
             return new Author(author.name.first, author.name.last, author.picture.medium);
         });
     },
-    template: function (name, image) {
-        return `<li><img src="${image}"><span>${name}</span></li>`;
+    template: function (name, image, className) {
+        return `<li class='${className}'><img src="${image}"><span>${name}</span></li>`;
     },
     getUrl: function() {
         return 'https://randomuser.me/api/?results=10';
