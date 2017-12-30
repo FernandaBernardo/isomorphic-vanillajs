@@ -29,32 +29,34 @@ const template = (name, image) => `<li><img src="${image}"><span>${name}</span><
 if (typeof module === 'object') {
     const express = require('express'),
         app = express(),
-        path = require('path');
+        path = require('path'),
+        exphbs  = require('express-handlebars');
 
     app.use(express.static(__dirname));
+    app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+    app.set('view engine', 'handlebars');
 
-    app.get('/', function(req, res){
-        res.sendFile(path.join(__dirname + '/index.html'));
+    app.get('/', function(req, response){
+        const https = require('https');
+        https.get(url, res => {
+            res.setEncoding("utf8");
+            let body = "";
+            res.on("data", data => {
+                body += data;
+            });
+            res.on("end", () => {
+                body = JSON.parse(body);
+                let authors = parser.parse(body.results);
+                let renderedAuthors = authors.map(function(author) {
+                    return template(author.name, author.image);
+                });
+                response.render('authors', {authors: renderedAuthors});
+            });
+        });
     });
 
     const server = app.listen(3000);
     console.log('Servidor Express iniciado na porta %s', server.address().port);
-
-    const https = require('https');
-    https.get(url, res => {
-        res.setEncoding("utf8");
-        let body = "";
-        res.on("data", data => {
-            body += data;
-        });
-        res.on("end", () => {
-            body = JSON.parse(body);
-            let authors = parser.parse(body.results);
-            return authors.map(function(author) {
-                console.log(template(author.name, author.image));
-            })
-        });
-    });
 } else {
     const ul = document.getElementById('authors');
     
