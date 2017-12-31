@@ -8,11 +8,13 @@ app.use(express.static(__dirname));
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-app.get('/', function(req, resp) {
+app.get('/', (req, resp) => {
     resp.render('authors');
 });
 
-app.get('/authors', function(req, resp){
+// ROUTERS CONFIG
+
+app.get('/authors-server', (req, resp) => {
     https.get(isomorphic.getUrl(), response => {
         response.setEncoding('utf8');
         let body = '';
@@ -21,25 +23,8 @@ app.get('/authors', function(req, resp){
         });
         response.on('end', () => {
             body = JSON.parse(body);
-            let authors = isomorphic.parse(body.results);
-            let renderedAuthors = authors.map(function(author) {
-                return isomorphic.template(author.name, author.image, 'server');
-            }).join('');
-            resp.send(renderedAuthors);
-        });
-    });
-})
-app.get('/authors-server', function(req, resp){
-    https.get(isomorphic.getUrl(), response => {
-        response.setEncoding('utf8');
-        let body = '';
-        response.on('data', data => {
-            body += data;
-        });
-        response.on('end', () => {
-            body = JSON.parse(body);
-            let authors = isomorphic.parse(body.results);
-            let renderedAuthors = authors.map(function(author) {
+            const authors = isomorphic.parse(body.results);
+            const renderedAuthors = authors.map((author) => {
                 return isomorphic.template(author.name, author.image, 'server');
             }).join('');
             resp.render('authors', {authors: renderedAuthors});
@@ -48,7 +33,7 @@ app.get('/authors-server', function(req, resp){
     });
 });
 
-app.get('/authors', function(req, resp){
+app.get('/authors', (req, resp) => {
     https.get(isomorphic.getUrl(), response => {
         response.setEncoding('utf8');
         let body = '';
@@ -57,15 +42,14 @@ app.get('/authors', function(req, resp){
         });
         response.on('end', () => {
             body = JSON.parse(body);
-            let authors = isomorphic.parse(body.results);
-            let renderedAuthors = authors.map(function(author) {
+            const authors = isomorphic.parse(body.results);
+            const renderedAuthors = authors.map( author => {
                 return isomorphic.template(author.name, author.image, 'server');
             }).join('');
             resp.send(renderedAuthors);
-            console.log("Rendered on server");
         });
     });
-})
+});
 
 const server = app.listen(3000);
 console.log('Servidor Express iniciado na porta %s', server.address().port);

@@ -3,15 +3,15 @@ if (typeof module === 'object') {
 }
 
 const isomorphic = {
-    parse: function(authors) {
+    parse: (authors) => {
         return authors.map((author) => {
             return new Author(author.name.first, author.name.last, author.picture.medium);
         });
     },
-    template: function (name, image, className) {
+    template: (name, image, className) => {
         return `<li class='${className}'><img src="${image}"><span>${name}</span></li>`;
     },
-    getUrl: function() {
+    getUrl: () => {
         return 'https://randomuser.me/api/?results=10';
     }
 };
