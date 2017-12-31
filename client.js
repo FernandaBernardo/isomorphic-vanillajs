@@ -10,6 +10,7 @@ buttonClient.addEventListener('click', function() {
             return authors.map(function(author) {
                 ul.insertAdjacentHTML('beforeend', isomorphic.template(author.name, author.image, "client"));
             });
+            console.log("Rendered on client");
         })
         .catch(function(error) {
             console.log(JSON.stringify(error));

@@ -43,6 +43,7 @@ app.get('/authors-server', function(req, resp){
                 return isomorphic.template(author.name, author.image, 'server');
             }).join('');
             resp.render('authors', {authors: renderedAuthors});
+            console.log("Rendered on server");
         });
     });
 });
@@ -61,6 +62,7 @@ app.get('/authors', function(req, resp){
                 return isomorphic.template(author.name, author.image, 'server');
             }).join('');
             resp.send(renderedAuthors);
+            console.log("Rendered on server");
         });
     });
 })
