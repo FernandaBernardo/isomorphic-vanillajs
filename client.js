@@ -1,29 +1,31 @@
 const ul = document.getElementById('authors');
 const buttonClient = document.getElementById('client');
 
-buttonClient.addEventListener('click', function() {
+buttonClient.addEventListener('click', () => {
     ul.innerHTML = "";
-    fetch(isomorphic.getUrl())
-        .then((resp) => resp.json())
-        .then(function(data) {
-            let authors = isomorphic.parse(data.results);
-            return authors.map(function(author) {
-                ul.insertAdjacentHTML('beforeend', isomorphic.template(author.name, author.image, "client"));
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', isomorphic.getUrl(), true);
+    xhr.send();
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            const results = JSON.parse(xhr.responseText).results;
+            const authors = isomorphic.parse(results);
+            return authors.map(author => {
+                ul.insertAdjacentHTML('beforeend', isomorphic.template(author.name, author.image, 'client'));
             });
             console.log("Rendered on client");
-        })
-        .catch(function(error) {
-            console.log(JSON.stringify(error));
-        });
+        }
+    }
 });
 
 const buttonServer = document.getElementById('server');
-buttonServer.addEventListener('click', function() {
+buttonServer.addEventListener('click', () => {
     ul.innerHTML = "";
     const xhr = new XMLHttpRequest();
     xhr.open('GET', '/authors', true);
     xhr.send();
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = () => {
         if (xhr.readyState == 4 && xhr.status == 200) {
             ul.insertAdjacentHTML('beforeend', xhr.responseText);
         }
